@@ -1,0 +1,98 @@
+CREATE DATABASE entreprise;
+
+USE entreprise
+
+CREATE TABLE clients (
+    client_id INT  AUTO_INCREMENT,
+    nom VARCHAR(50),
+    prenom VARCHAR(50),
+    email VARCHAR(255),
+    adress VARCHAR(255),
+    telephone VARCHAR(50),
+    PRIMARY KEY(client_id)
+);
+
+CREATE TABLE  produits (
+    produits_id INT AUTO_INCREMENT,
+    nom VARCHAR(50),
+    the_description VARCHAR(255),
+    price DOUBLE,
+    stock DOUBLE,
+    PRIMARY KEY (produits_id) 
+);
+
+CREATE TABLE commandes (
+    commande_id INT AUTO_INCREMENT,
+    id_client INT,
+    date_commande DATE,
+    statue VARCHAR(50),
+    total DECIMAL(10,2),
+    PRIMARY KEY (commande_id),
+    Foreign Key (id_client) REFERENCES clients (client_id)
+);
+
+ALTER TABLE commandes
+ADD CONSTRAINT check_statut CHECK (statue IN ('en cours','livrée','annulée'));
+
+ALTER TABLE commandes
+MODIFY COLUMN statue varchar(50) default "en cours" ;
+
+
+
+mysql> CREATE DATABASE entreprise;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE entreprise
+Database changed
+mysql>
+mysql> CREATE TABLE clients (
+    ->     client_id int  AUTO_INCREMENT,
+    ->     nom VARCHAR(50),
+    ->     prenom VARCHAR(50),
+    ->     email VARCHAR(255),
+    ->     adress VARCHAR(255),
+    ->     telephone VARCHAR(50),
+    ->     PRIMARY KEY(client_id)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE TABLE  produits (
+    ->     produits_id INT AUTO_INCREMENT,
+    ->     nom VARCHAR(50),
+    ->     the_description VARCHAR(255),
+    ->     price DOUBLE,
+    ->     stock DOUBLE,
+    ->     PRIMARY KEY (produits_id)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE TABLE commandes (
+    ->     commande_id INT AUTO_INCREMENT,
+    ->     id_client INT,
+    ->     date_commande DATE,
+    ->     statue VARCHAR(50),
+    ->     total DECIMAL(10,2),
+    ->     PRIMARY KEY (commande_id),
+    ->     Foreign Key (id_client) REFERENCES clients (client_id)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> show tables;
++----------------------+
+| Tables_in_entreprise |
++----------------------+
+| clients              |
+| commandes            |
+| produits             |
++----------------------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE commandes
+    -> ADD CONSTRAINT check_statut CHECK (statue IN ('en cours','livrée','annulée'));
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE commandes
+    -> MODIFY COLUMN statue varchar(50) default "en cours" ;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
